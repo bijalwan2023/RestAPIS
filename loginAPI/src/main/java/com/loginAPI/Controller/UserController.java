@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.loginAPI.Entity.User;
+import com.loginAPI.Entity.Users;
 import com.loginAPI.Repository.UserRepository;
 import com.loginAPI.Service.UserService;
 import com.loginAPI.jwt.JwtTokenProvider;
@@ -36,7 +36,7 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("/generate-otp")
-	public ResponseEntity<String> generateOTP(@RequestBody User request) {
+	public ResponseEntity<String> generateOTP(@RequestBody Users request) {
 	    String phoneNumber = request.getPhoneNumber();
 	    String otp = userService.generateRandomOTP();
 
@@ -44,9 +44,9 @@ public class UserController {
 	    String jwtToken = jwtTokenProvider.generateToken(phoneNumber);
 
 	    // Save user details or update OTP if user already exists
-	    User user = userRepository.findByPhoneNumber(phoneNumber);
+	    Users user = userRepository.findByPhoneNumber(phoneNumber);
 	    if (user == null) {
-	        user = new User();
+	        user = new Users();
 	        user.setPhoneNumber(phoneNumber);
 	    }
 	    user.setOtp(otp);
@@ -57,7 +57,7 @@ public class UserController {
 	    return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	@PostMapping("/validate-otp")
-	public ResponseEntity<String> validateOtp(@RequestBody User user) {
+	public ResponseEntity<String> validateOtp(@RequestBody Users user) {
 		String phoneNumber=user.getPhoneNumber();
 		String enteredOtp=user.getOtp();
 		boolean isValidOtp = userService.validateOtp(phoneNumber, enteredOtp);
@@ -78,8 +78,8 @@ public class UserController {
 	}
 
 	@GetMapping("/allUsers")
-	public List<User>allUsers(){
-		List<User> user=userRepository.findAll();
+	public List<Users>allUsers(){
+		List<Users> user=userRepository.findAll();
 		return user;
 
 	}

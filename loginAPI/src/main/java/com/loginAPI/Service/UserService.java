@@ -5,7 +5,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.loginAPI.Entity.User;
+import com.loginAPI.Entity.Users;
 import com.loginAPI.Repository.UserRepository;
 @Service
 public class UserService {
@@ -21,7 +21,7 @@ public class UserService {
 	
 	public boolean validateOtp(String phoneNumber, String enteredOtp) {
         // Validate the entered OTP for the provided phone number
-        User user = userRepository.findByPhoneNumber(phoneNumber);
+        Users user = userRepository.findByPhoneNumber(phoneNumber);
         if (user != null) {
             String storedOtp = user.getOtp();
             if (storedOtp != null && storedOtp.equals(enteredOtp)) {

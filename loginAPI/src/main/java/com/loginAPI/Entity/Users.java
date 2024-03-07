@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 
 //User.java
 @Entity
-public class User {
+public class Users {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
  private Long id;
@@ -51,7 +51,7 @@ public void setOtp(String otp) {
 
 
 
-public User(Long id, String phoneNumber, String otp, String userName, String email, String password) {
+public Users(Long id, String phoneNumber, String otp, String userName, String email, String password) {
 	super();
 	this.id = id;
 	this.phoneNumber = phoneNumber;
@@ -59,7 +59,7 @@ public User(Long id, String phoneNumber, String otp, String userName, String ema
 	
 }
 
-public User() {
+public Users() {
 	super();
 	// TODO Auto-generated constructor stub
 }
